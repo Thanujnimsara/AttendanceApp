@@ -16,19 +16,7 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Face model check
-        env:
-          MODEL_URL: ${{ vars.MODEL_URL }}
-        run: |
-          F=app/src/main/assets/mobilefacenet.tflite
-          if [ ! -f "$F" ] && [ -n "$MODEL_URL" ]; then
-            curl -L --fail -o "$F" "$MODEL_URL"
-          fi
-          if [ ! -f "$F" ]; then
-            echo "::error::mobilefacenet.tflite is missing. Upload it to app/src/main/assets/ (or set a repository variable MODEL_URL)."
-            exit 1
-          fi
-          ls -l "$F"
+     
 
       - name: Accept Android SDK licenses
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
